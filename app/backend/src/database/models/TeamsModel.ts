@@ -1,14 +1,14 @@
-import SequelizeTeam from './SequelizeTeams'
-import { TeamsType } from '../../Interfaces/ITeams'
-import { ITeamsModel } from '../../Interfaces/ITeamsModel'
+import SequelizeTeam from './SequelizeTeams';
+import { TeamsType } from '../../Interfaces/ITeams';
+import { ITeamsModel } from '../../Interfaces/ITeamsModel';
 
 export default class TeamsModel implements ITeamsModel {
-  private model = SequelizeTeam
+  private model = SequelizeTeam;
 
   async findAll(): Promise<TeamsType[]> {
     const dbData = await this.model.findAll();
-    return dbData.map(({ id, teamName}) => (
-    { id, teamName }
+    return dbData.map(({ id, teamName }) => (
+      { id, teamName }
     ));
   }
 
@@ -17,6 +17,6 @@ export default class TeamsModel implements ITeamsModel {
     if (dbData == null) return null;
 
     const { teamName }: TeamsType = dbData;
-    return { id, teamName};
+    return { id, teamName };
   }
 }
