@@ -24,7 +24,7 @@ export default class UserService {
     if (!user) return UserService.invalidCredentialsResponse;
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) return UserService.invalidCredentialsResponse;
-    const payload = { sub: user.id, role: 'user', email: user.email };
+    const payload = { sub: user.id, role: user.role, email: user.email };
     const secret = process.env.JWT_SECRET ?? 'secret_qualquer';
     const token = jwt.sign(payload, secret, { expiresIn: '1d' });
     return {
