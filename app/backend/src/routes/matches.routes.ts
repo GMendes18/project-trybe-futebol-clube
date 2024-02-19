@@ -18,4 +18,7 @@ router.patch('/:id', Validations.handle, (req: Request, res: Response) => {
   matchesController.updateMatch(req, res);
 });
 
+router.post('/', Validations.handle, (req: Request, res: Response) =>
+  matchesController.create(req, res));
+
 export default router;

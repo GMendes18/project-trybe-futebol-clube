@@ -1,6 +1,6 @@
 import SequelizeMatches from './SequelizeMatches';
 import IMatch from '../../Interfaces/IMatch';
-import IMatchModel from '../../Interfaces/IMatchModel';
+import IMatchModel, { NewEntity } from '../../Interfaces/IMatchModel';
 import SequelizeTeam from './SequelizeTeams';
 
 export default class MatchesModel implements IMatchModel {
@@ -37,5 +37,16 @@ export default class MatchesModel implements IMatchModel {
   Promise<string> {
     await this.model.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
     return 'Updated';
+  }
+
+  async create(data: NewEntity<IMatch>): Promise<IMatch> {
+    const dbData = await this.model.create({
+      homeTeamId: data.homeTeamId,
+      homeTeamGoals: data.homeTeamGoals,
+      awayTeamId: data.awayTeamId,
+      awayTeamGoals: data.awayTeamGoals,
+      inProgress: true,
+    });
+    return dbData.dataValues;
   }
 }
