@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import MatchesService from '../sevices/MatchesService';
-// import mapStatusHTTP from '../utils/mapStatusHTTP';
+import mapStatusHTTP from '../utils/mapStatusHTTP';
 
 export default class MatchesController {
   constructor(
@@ -16,5 +16,11 @@ export default class MatchesController {
     const inProgressFilter = inProgress === 'true';
     const serviceResponse = await this.matchesService.findByProgress(inProgressFilter);
     res.status(200).json(serviceResponse.data);
+  }
+
+  public async finishMatch(req: Request, res: Response) {
+    const { id } = req.params;
+    const { status, data } = await this.matchesService.finishMatch(Number(id));
+    res.status(mapStatusHTTP(status)).json(data);
   }
 }
