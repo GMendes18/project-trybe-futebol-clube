@@ -4,13 +4,18 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 import SequelizeMatches from '../database/models/SequelizeMatches';
 import { app } from '../app';
-import { allMatches } from './mocks/matches.mocks';
+import { allMatches, matchesInProgress } from './mocks/matches.mocks';
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
 describe('Matches tests', () => {
+
+    afterEach(() => {
+        sinon.restore()
+      });
+
     it('deve retornar todas as partidas', async () => {
         sinon.stub(SequelizeMatches, 'findAll').resolves(allMatches as any);
     
@@ -20,5 +25,13 @@ describe('Matches tests', () => {
         expect(body).to.deep.equal(allMatches);
       });
 
+      it('deve retornar todas as partidas filtradas pelo progresso', async () => {
+        sinon.stub(SequelizeMatches, 'findAll').resolves(matchesInProgress as any);
+    
+        const { status, body } = await chai.request(app).get('/matches?inProgress=true');
+    
+        expect(status).to.equal(200);
+        expect(body).to.deep.equal(matchesInProgress);
+      });
 
 });
