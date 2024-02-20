@@ -33,7 +33,7 @@ export default class MatchesController {
   }
 
   public async create(req: Request, res: Response) {
-    const serviceResponse = await this.matchesService.create(req.body);
-    res.status(201).json(serviceResponse.data);
+    const { status, data } = await this.matchesService.create(req.body);
+    res.status(mapStatusHTTP(status)).json(data);
   }
 }
