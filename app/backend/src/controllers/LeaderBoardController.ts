@@ -11,4 +11,9 @@ export default class LeaderBoardController {
     const { status, data } = await this.leaderBoardService.getAllLeaderBoards();
     res.status(mapStatusHTTP(status)).json(data);
   }
+
+  public async getAllLeaderBoardsAway(req: Request, res: Response) {
+    const { status, data } = await this.leaderBoardService.getAllLeaderBoardsAway();
+    res.status(mapStatusHTTP(status)).json(data);
+  }
 }

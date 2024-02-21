@@ -73,6 +73,71 @@ function getTeamsByOrder(team: ILeaderBoard[]): ILeaderBoard[] {
   return team;
 }
 
+function getTotalVictoriesA(id: number, matches: IMatch[]): number {
+  const total = matches.filter((match) => id === match.awayTeamId
+      && match.awayTeamGoals > match.homeTeamGoals).length;
+  return total;
+}
+
+function getTotalDrawsA(id: number, matches: IMatch[]): number {
+  const total = matches.filter((match) => id === match.awayTeamId
+      && match.homeTeamGoals === match.awayTeamGoals).length;
+  return total;
+}
+
+function getTotalPointsA(id: number, matches: IMatch[]): number {
+  return (getTotalVictoriesA(id, matches) * 3) + getTotalDrawsA(id, matches);
+}
+
+function getTotalLossesA(id: number, matches: IMatch[]): number {
+  const total = matches.filter((match) => id === match.awayTeamId
+      && match.awayTeamGoals < match.homeTeamGoals).length;
+  return total;
+}
+
+function getGoalsFavorA(id: number, matches: IMatch[]): number {
+  const total = matches.reduce((acc, match) => {
+    if (id === match.awayTeamId) {
+      return acc + match.awayTeamGoals;
+    }
+    return acc;
+  }, 0);
+  return total;
+}
+
+function getGoalsOwnA(id: number, matches: IMatch[]): number {
+  const total = matches.reduce((acc, match) => {
+    if (id === match.awayTeamId) {
+      return acc + match.homeTeamGoals;
+    }
+    return acc;
+  }, 0);
+  return total;
+}
+
+function getTotalGamesA(id: number, matches: IMatch[]): number {
+  const total = matches.filter((match) =>
+    id === match.awayTeamId).length;
+  return total;
+}
+
+function getGoalsBalanceA(id: number, matches: IMatch[]): number {
+  const goalsFavor = getGoalsFavorA(id, matches);
+  const goalsOwn = getGoalsOwnA(id, matches);
+
+  return goalsFavor - goalsOwn;
+}
+
+function getEfficiencyA(id: number, matches: IMatch[]): string {
+  const totalPoints = getTotalPointsA(id, matches);
+  const totalGames = getTotalGamesA(id, matches);
+
+  const possiblePoints = totalGames * 3;
+  const efficiency = (totalPoints / possiblePoints) * 100;
+
+  return efficiency.toFixed(2);
+}
+
 export {
   getGoalsFavor,
   getGoalsOwn,
@@ -84,4 +149,13 @@ export {
   getGoalsBalance,
   getEfficiency,
   getTeamsByOrder,
+  getTotalVictoriesA,
+  getTotalDrawsA,
+  getTotalPointsA,
+  getTotalLossesA,
+  getGoalsFavorA,
+  getGoalsOwnA,
+  getTotalGamesA,
+  getGoalsBalanceA,
+  getEfficiencyA,
 };
