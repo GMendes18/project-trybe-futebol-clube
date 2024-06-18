@@ -97,27 +97,27 @@ function getTotalLossesA(id: number, matches: IMatch[]): number {
 
 function getGoalsFavorA(id: number, matches: IMatch[]): number {
   const total = matches.reduce((acc, match) => {
-    if (id === match.awayTeamId) {
-      return acc + match.awayTeamGoals;
-    }
-    return acc;
+      if (id === match.awayTeamId) {
+          return acc + match.awayTeamGoals;
+      }
+      return acc;
   }, 0);
   return total;
 }
 
 function getGoalsOwnA(id: number, matches: IMatch[]): number {
   const total = matches.reduce((acc, match) => {
-    if (id === match.awayTeamId) {
-      return acc + match.homeTeamGoals;
-    }
-    return acc;
+      if (id === match.awayTeamId) {
+          return acc + match.homeTeamGoals;
+      }
+      return acc;
   }, 0);
   return total;
 }
 
 function getTotalGamesA(id: number, matches: IMatch[]): number {
   const total = matches.filter((match) =>
-    id === match.awayTeamId).length;
+      id === match.awayTeamId).length;
   return total;
 }
 
@@ -137,6 +137,7 @@ function getEfficiencyA(id: number, matches: IMatch[]): string {
 
   return efficiency.toFixed(2);
 }
+
 
 export {
   getGoalsFavor,
@@ -158,4 +159,5 @@ export {
   getTotalGamesA,
   getGoalsBalanceA,
   getEfficiencyA,
+  
 };

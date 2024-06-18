@@ -1,3 +1,5 @@
+import { ServiceResponse } from "./ServiceResponse";
+
 export default interface ILeaderBoard {
   name: string;
   totalPoints: number;
@@ -9,4 +11,8 @@ export default interface ILeaderBoard {
   goalsOwn: number;
   goalsBalance: number;
   efficiency: string;
+}
+
+export interface ILeaderboardService {
+  newLeaderBoard(type: string): Promise<ServiceResponse<ILeaderBoard[]>>
 }

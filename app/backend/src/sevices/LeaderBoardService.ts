@@ -10,7 +10,7 @@ import { getTotalDraws, getTotalGames, getGoalsFavor, getGoalsOwn,
   getGoalsOwnA,
   getTotalGamesA,
   getGoalsBalanceA,
-  getEfficiencyA,
+  getEfficiencyA
 } from '../utils/leaderboardfunctions';
 // import ILeaderBoard from "../Interfaces/ILeaderBoard";
 // import { ServiceResponse } from "../Interfaces/ServiceResponse";
